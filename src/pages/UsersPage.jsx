@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getUsers, deleteUser } from "../services/api";
 import UserTable from "../components/UserTable";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
 
 function UsersPage() {
-  
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [users, setUsers] = useState([]);
@@ -56,7 +56,7 @@ function UsersPage() {
 
   // Edit
   const handleEdit = (user) => {
-    console.log(`Edit clicked for user: ${user.name} (ID: ${user.id})`);
+    navigate(`/users/${user.id}/edit`);
   };
 
   // Search and filter logic
@@ -201,7 +201,7 @@ function UsersPage() {
                 <SearchBar onSearch={setSearchQuery} />
               </div>
               <button
-                onClick={() => console.log("Add user clicked")}
+                onClick={() => navigate("/users/add")}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 w-full lg:w-auto"
               >
                 Add User
